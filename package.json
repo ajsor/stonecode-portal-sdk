@@ -1,0 +1,50 @@
+{
+  "name": "@stonecode/portal-sdk",
+  "version": "0.1.0",
+  "description": "Shared authentication, feature-flag, theme, and navigation primitives for stonecode.ai and its satellite apps (aether, relaite, mb-dashboard, adam).",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./theme.css": "./dist/theme.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc && cp src/theme.css dist/theme.css",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@supabase/supabase-js": "^2.0.0",
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "@supabase/supabase-js": "^2.95.3",
+    "@types/react": "^19.0.0",
+    "react": "^19.2.0",
+    "typescript": "^5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajsor/stonecode-portal-sdk.git"
+  },
+  "keywords": [
+    "stonecode",
+    "portal",
+    "supabase",
+    "auth",
+    "feature-flags"
+  ],
+  "author": "Andrew Stone",
+  "license": "UNLICENSED",
+  "private": false
+}
