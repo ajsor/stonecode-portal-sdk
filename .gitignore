@@ -1,3 +1,15 @@
 node_modules
+dist
 *.log
 .DS_Store
+
+# Environment
+.env
+.env.local
+.env.*.local
+*.local
+
+# Secrets / local-only
+secrets.md
+.dev.vars
+.dev.vars.local
