@@ -12,11 +12,21 @@ export interface PortalSupabaseOptions {
      * Defaults: autoRefresh=true, persistSession=true, detectSessionInUrl=true.
      */
     authOverrides?: SupabaseClientOptions<'public'>['auth'];
+    /**
+     * Dev-only escape hatch: fall back to a placeholder client instead of
+     * throwing when url/anonKey are missing. Never enable in production — a
+     * placeholder client fails every request in ways that look like network
+     * errors.
+     */
+    allowPlaceholder?: boolean;
 }
 /**
  * Canonical Supabase client factory shared by all portal apps. Guarantees
  * consistent auth defaults so session handoff between stonecode.ai and
  * satellites works predictably.
+ *
+ * Throws when url/anonKey are missing (misconfigured build) unless
+ * `allowPlaceholder` is set.
  */
 export declare function createPortalSupabaseClient(opts: PortalSupabaseOptions): SupabaseClient;
 //# sourceMappingURL=supabase.d.ts.map

@@ -1,6 +1,6 @@
 {
   "name": "@stonecode/portal-sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shared authentication, feature-flag, theme, and navigation primitives for stonecode.ai and its satellite apps (aether, relaite, mb-dashboard, adam).",
   "type": "module",
   "main": "./dist/index.js",
@@ -20,8 +20,10 @@
     "README.md"
   ],
   "scripts": {
-    "build": "rm -rf dist && tsc && cp src/theme.css dist/theme.css",
-    "typecheck": "tsc --noEmit"
+    "clean": "node -e \"fs.rmSync('dist',{recursive:true,force:true})\"",
+    "build": "npm run clean && tsc && node scripts/build-theme-css.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
   },
   "peerDependencies": {
     "@supabase/supabase-js": "^2.0.0",
@@ -30,8 +32,10 @@
   "devDependencies": {
     "@supabase/supabase-js": "^2.95.3",
     "@types/react": "^19.0.0",
+    "jsdom": "^26.0.0",
     "react": "^19.2.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^3.0.0"
   },
   "repository": {
     "type": "git",

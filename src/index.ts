@@ -6,13 +6,21 @@ export {
 } from './auth.js'
 
 export {
+  createSessionHandoff,
+  redeemSessionHandoff,
+  type HandoffCreateResult,
+} from './handoff.js'
+
+export {
   fetchUserFeatureFlags,
-  useFeatureFlagContract,
+  type UseFeatureFlagsContract,
+  type useFeatureFlagContract,
   type FeatureFlagMap,
 } from './featureFlags.js'
 
 export {
   buildPortalLaunchUrl,
+  buildPortalHandoffUrl,
   PORTAL_URL,
   SATELLITE_URLS,
   type SatelliteApp,

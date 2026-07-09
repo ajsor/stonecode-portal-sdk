@@ -1,11 +1,10 @@
 /* @stonecode/portal-sdk — shared design tokens
+ * GENERATED from src/theme.ts by scripts/build-theme-css.mjs — do not edit by hand.
  * Import once at the root of your app:
  *   @import "@stonecode/portal-sdk/theme.css";
- * Values mirror `tokens` in src/theme.ts.
  */
 
 :root {
-  /* Accent — orange */
   --sc-accent-50: #fff7ed;
   --sc-accent-100: #ffedd5;
   --sc-accent-200: #fed7aa;
@@ -16,34 +15,22 @@
   --sc-accent-700: #c2410c;
   --sc-accent-800: #9a3412;
   --sc-accent-900: #7c2d12;
-
-  /* Backgrounds */
   --sc-bg-dark: #020617;
   --sc-bg-dark-surface: #0a0502;
   --sc-bg-light: #f8fafc;
-
-  /* Text */
   --sc-text-dark-primary: #ffffff;
   --sc-text-dark-secondary: #94a3b8;
   --sc-text-light-primary: #0f172a;
   --sc-text-light-secondary: #475569;
-
-  /* Radius */
   --sc-radius-sm: 0.5rem;
   --sc-radius-md: 0.75rem;
   --sc-radius-lg: 1rem;
   --sc-radius-xl: 1.25rem;
   --sc-radius-2xl: 1.5rem;
-
-  /* Shadows */
   --sc-shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.12);
   --sc-shadow-accent: 0 8px 32px rgba(234, 88, 12, 0.35);
-
-  /* Typography */
   --sc-font-display: 'Space Grotesk', system-ui, sans-serif;
   --sc-font-body: 'Inter', system-ui, sans-serif;
-
-  /* Duration */
   --sc-duration-fast: 150ms;
   --sc-duration-normal: 300ms;
   --sc-duration-slow: 500ms;

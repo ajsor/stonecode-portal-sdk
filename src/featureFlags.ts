@@ -48,16 +48,17 @@ export async function fetchUserFeatureFlags(
 }
 
 /**
- * Shape-only helper so consumers can type a `useFeatureFlags` hook
+ * Shape-only contract so consumers can type a `useFeatureFlags` hook
  * consistently across apps without all of them re-declaring the interface.
+ * Type-only on purpose: real hooks live in each app (they need the app's
+ * Auth context). The previous runtime `undefined` binding looked callable
+ * and shipped a trap in the bundle.
  */
-export interface useFeatureFlagContract {
+export interface UseFeatureFlagsContract {
   flags: FeatureFlagMap
   hasFeature: (name: string) => boolean
   isLoading: boolean
 }
 
-// Satisfy "export { useFeatureFlagContract }" by also exporting a typed noop.
-// Real hooks live in each app (they need the app's Auth context); this is
-// the shared *contract* they should conform to.
-export const useFeatureFlagContract = undefined as unknown as useFeatureFlagContract
+/** @deprecated Use {@link UseFeatureFlagsContract}. */
+export type useFeatureFlagContract = UseFeatureFlagsContract

@@ -1,18 +1,25 @@
 import type { SupabaseClient, Session } from '@supabase/supabase-js';
 export interface BootstrapResult {
     session: Session | null;
-    source: 'hash' | 'existing' | 'none';
+    source: 'handoff' | 'hash' | 'existing' | 'none';
     error?: string;
 }
 /**
- * Parse tokens from the URL hash (`#access_token=...&refresh_token=...&type=portal`)
- * and hand them to Supabase. Falls back to any existing session.
+ * Bootstrap the Supabase session from the launch URL, falling back to any
+ * existing persisted session.
+ *
+ * Supports two hash formats:
+ *   - `#handoff_code=...&type=portal` (preferred, SDK >= 0.2.0): a one-time
+ *     code redeemed server-side — no tokens ever touch the URL.
+ *   - `#access_token=...&refresh_token=...&type=portal` (legacy): raw tokens
+ *     in the hash. Still accepted so older portals can launch newer
+ *     satellites during the migration.
  *
  * Call this once at app startup — before any routing decisions that depend on
  * whether the user is signed in.
  *
- * Always scrubs the hash from the address bar on success so the tokens don't
- * end up in browser history, referrers, or analytics.
+ * Always scrubs the hash from the address bar so codes/tokens don't linger in
+ * browser history, referrers, or analytics.
  */
 export declare function bootstrapSessionFromHash(supabase: SupabaseClient): Promise<BootstrapResult>;
 /**

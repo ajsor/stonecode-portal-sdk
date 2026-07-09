@@ -12,13 +12,17 @@ export type FeatureFlagMap = Record<string, boolean>;
  */
 export declare function fetchUserFeatureFlags(supabase: SupabaseClient, userId: string): Promise<FeatureFlagMap>;
 /**
- * Shape-only helper so consumers can type a `useFeatureFlags` hook
+ * Shape-only contract so consumers can type a `useFeatureFlags` hook
  * consistently across apps without all of them re-declaring the interface.
+ * Type-only on purpose: real hooks live in each app (they need the app's
+ * Auth context). The previous runtime `undefined` binding looked callable
+ * and shipped a trap in the bundle.
  */
-export interface useFeatureFlagContract {
+export interface UseFeatureFlagsContract {
     flags: FeatureFlagMap;
     hasFeature: (name: string) => boolean;
     isLoading: boolean;
 }
-export declare const useFeatureFlagContract: useFeatureFlagContract;
+/** @deprecated Use {@link UseFeatureFlagsContract}. */
+export type useFeatureFlagContract = UseFeatureFlagsContract;
 //# sourceMappingURL=featureFlags.d.ts.map

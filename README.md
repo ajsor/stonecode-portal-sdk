@@ -1,15 +1,19 @@
 # @stonecode/portal-sdk
 
 Shared building blocks for the stonecode.ai portal and its satellite apps
-(aether, relaite, mb-dashboard, adam).
+(aether, relaite, mb-dashboard, adam, chorus, mosaic, recon, lens, sketchy,
+forge, cameo, joule).
 
 Canonical home for:
 
 - Session hand-off between the portal and satellites (`bootstrapSessionFromHash`)
+- One-time handoff codes (`createSessionHandoff` / `buildPortalHandoffUrl`) —
+  keeps tokens out of launch URLs entirely
 - Supabase client factory with consistent auth defaults
 - Feature-flag fetching against the shared `feature_flags` / `user_feature_flags` tables
 - Deep-link URL construction (`buildPortalLaunchUrl`)
 - Design tokens (orange/amber palette, glass shadows, typography) in both TS and CSS form
+  — `theme.css` is generated from `theme.ts` at build time
 
 ## Install
 
@@ -50,12 +54,29 @@ const { session, source, error } = await bootstrapSessionFromHash(supabase)
 
 ### Deep-link from portal to satellite
 
+Preferred (SDK >= 0.2.0 on the satellite; requires the `portal-handoff` edge
+function): a single-use, 120-second code instead of raw tokens in the URL —
+
+```ts
+import { createSessionHandoff, buildPortalHandoffUrl } from '@stonecode/portal-sdk'
+
+const { code } = await createSessionHandoff(supabase, session)
+const url = buildPortalHandoffUrl('aether', code)
+window.open(url, '_blank', 'noopener,noreferrer')
+```
+
+Legacy (works with any SDK version, but puts the refresh token in the new
+tab's browser history):
+
 ```ts
 import { buildPortalLaunchUrl } from '@stonecode/portal-sdk'
 
 const url = buildPortalLaunchUrl('aether', session)
 window.open(url, '_blank', 'noopener,noreferrer')
 ```
+
+`bootstrapSessionFromHash` on the satellite side understands both hash
+formats, so satellites can upgrade to 0.2.0 before the portal flips over.
 
 ### Theme
 
@@ -74,8 +95,9 @@ import { tokens } from '@stonecode/portal-sdk'
 
 ```bash
 npm install
-npm run build       # emits dist/
+npm run build       # emits dist/ (tsc + theme.css codegen)
 npm run typecheck
+npm test            # vitest — hash bootstrap + URL builder coverage
 ```
 
 Commit and tag:

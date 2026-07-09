@@ -28,8 +28,4 @@ export async function fetchUserFeatureFlags(supabase, userId) {
     }
     return flags;
 }
-// Satisfy "export { useFeatureFlagContract }" by also exporting a typed noop.
-// Real hooks live in each app (they need the app's Auth context); this is
-// the shared *contract* they should conform to.
-export const useFeatureFlagContract = undefined;
 //# sourceMappingURL=featureFlags.js.map
